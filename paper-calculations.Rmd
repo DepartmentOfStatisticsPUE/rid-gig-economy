@@ -1,0 +1,379 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Install required packages
+
+
+```{r}
+devtools::install_github("teunbrand/ggh4x")
+```
+
+Load packages
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(xtable)
+library(lubridate)
+library(ggrepel)
+library(ggh4x)
+library(haven)
+
+theme_set(theme_bw())
+```
+
+
+Selectivv data
+
+```{r}
+selectivv <- readRDS("data/selectvv-data-list.rds")
+str(selectivv, 2)
+```
+
+BAEL data 
+```{r}
+bael <- read_excel("data/bael.xlsx", sheet = 1)  %>%
+  na.omit() %>%
+  unite(period, year:yearhalf, sep = ".") %>%
+  rename(region_name = nazwa_miasta)
+```
+
+
+
+Figure 3: Number of monthly active users of selected apps in Poland by type and between 2018 and2020
+
+
+```{r}
+selectivv[[1]] %>%
+  mutate(month = as.Date(paste('15', month), format='%d %b %Y')) %>%
+  gather(apps, vals, -month) %>%
+  filter(vals > 0 ) %>%
+  mutate(przewoz = apps %in% c("uber_driver", "bolt_driver", 
+                               "i_taxi_kierowca_k3", "free_now_for_drivers"),
+         przewoz = ifelse(przewoz, "Kierowcy (przewóz osób)", "Dostawcy (przewóz towarów)")) %>%
+  mutate(apps = case_when(apps == "bolt_courier" ~"Bolt Courier",
+                          apps == "bolt_driver" ~ "Bolt Driver",
+                          apps == "free_now_for_drivers" ~ "Free Now",
+                          apps == "glover" ~ "Glover",
+                          apps == "i_taxi_kierowca_k3" ~ "iTaxi",
+                          apps == "takeaway_com_courier" ~ "Takeaway",
+                          apps == "uber_driver" ~ "Uber",
+                          apps == "wolt_courier_partner" ~ "Wolt"),
+         label = if_else(month == max(month), as.character(apps), NA_character_)) %>%
+  ggplot(data = ., aes(x = month, y = vals/1000, color = apps, group = apps)) +
+  geom_line(show.legend = FALSE) + 
+  geom_text_repel(aes(label = label),
+                  nudge_x = -0.25, 
+                  direction = "y", 
+                  hjust = "left",
+                  box.padding = .1,
+                  force = .8,
+                  na.rm = TRUE,
+                  show.legend = FALSE) + 
+  scale_color_brewer(type = "qual", palette = "Dark2") + 
+  labs(x = "Period", y = 'Number of users (thousands)', color = "App") + 
+  facet_wrap(~przewoz, scales = "free_y") +
+  scale_x_date(limits = c(as.Date("2018-01-01"), as.Date("2021-09-01"))) + 
+  theme(strip.text = element_text(size = 15)) ->  p1
+
+p1
+
+ggsave(plot = p1, file = "figures/fig-sel-month.png", width = 7, height = 4)
+```
+
+Figure 4 Number of monthly active users of selected apps in Poland by country, age and gender between 2018 and 2020
+
+```{r}
+selectivv[[2]] %>%
+  count(app, country, period, wt = n_unique_users) %>%
+  mutate(period = case_when(period == "January - June 2018" ~ "2018.1",
+                            period == "July - December 2018" ~ "2018.2",
+                            period == "January - June 2019" ~ "2019.1",
+                            period == "July - December 2019" ~ "2019.2",
+                            period == "January - June 2020" ~ "2020.1",
+                            period == "July - December 2020" ~ "2020.2"),
+         country = factor(country, c("PL", "UA", "other"), c("Poland", "Ukraine", "Other")),
+         przewoz = app %in% c("Uber Driver", "Bolt Driver", 
+                               "iTaxi Kierowca K3", "FREE NOW for drivers"),
+         przewoz = ifelse(przewoz, "Transport", "Delivery"),
+         app = case_when(app == "Bolt Courier" ~"Bolt Courier",
+                          app == "Bolt Driver" ~ "Bolt Driver",
+                          app == "FREE NOW for drivers" ~ "FREE NOW",
+                          app == "Glover" ~ "Glover",
+                          app == "iTaxi Kierowca K3" ~ "iTaxi",
+                          app == "Takeaway.com Courier" ~ "Takeaway",
+                          app == "Uber Driver" ~ "Uber",
+                          app == "Wolt Courier Partner" ~ "Wolt")) %>%
+  ggplot(data = ., aes(x = period, y = n/1000, group = country, color = country)) +
+  geom_line() +
+  geom_point() + 
+  scale_color_brewer(type = "qual", palette = "Dark2") +  
+  facet_nested(~ przewoz + app) +
+  labs(x = "Half-year", y = "Number of users (in thousands)", color = "Country") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
+        legend.position = "bottom") -> p2a
+
+p2a
+
+ggsave(plot = p2a, file = "figures/fig-sel-half-country.png", width = 8, height = 4)
+```
+
+```{r}
+selectivv[[2]] %>%
+  count(app, age, period, wt = n_unique_users) %>%
+  mutate(period = case_when(period == "January - June 2018" ~ "2018.1",
+                            period == "July - December 2018" ~ "2018.2",
+                            period == "January - June 2019" ~ "2019.1",
+                            period == "July - December 2019" ~ "2019.2",
+                            period == "January - June 2020" ~ "2020.1",
+                            period == "July - December 2020" ~ "2020.2"),
+         #country = factor(country, c("PL", "UA", "other"), c("Poland", "Ukraine", "Other")),
+         przewoz = app %in% c("Uber Driver", "Bolt Driver", 
+                               "iTaxi Kierowca K3", "FREE NOW for drivers"),
+         przewoz = ifelse(przewoz, "Transport", "Delivery"),
+         app = case_when(app == "Bolt Courier" ~"Bolt Courier",
+                          app == "Bolt Driver" ~ "Bolt Driver",
+                          app == "FREE NOW for drivers" ~ "FREE NOW",
+                          app == "Glover" ~ "Glover",
+                          app == "iTaxi Kierowca K3" ~ "iTaxi",
+                          app == "Takeaway.com Courier" ~ "Takeaway",
+                          app == "Uber Driver" ~ "Uber",
+                          app == "Wolt Courier Partner" ~ "Wolt")) %>%
+  ggplot(data = ., aes(x = period, y = n/1000, group = age, color = age)) +
+  geom_line() +
+  geom_point() + 
+  scale_color_brewer(type = "qual", palette = "Dark2") +  
+  facet_nested(~ przewoz + app) +
+  labs(x = "Half-year", y = "Number of users (in thousands)", color = "Age group") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
+        legend.position = "bottom") -> p2b
+
+p2b
+
+ggsave(plot = p2b, file = "figures/fig-sel-half-age.png", width = 8, height = 4)
+
+
+```
+
+
+```{r}
+selectivv[[2]] %>%
+  count(app, gender, period, wt = n_unique_users) %>%
+  mutate(period = case_when(period == "January - June 2018" ~ "2018.1",
+                            period == "July - December 2018" ~ "2018.2",
+                            period == "January - June 2019" ~ "2019.1",
+                            period == "July - December 2019" ~ "2019.2",
+                            period == "January - June 2020" ~ "2020.1",
+                            period == "July - December 2020" ~ "2020.2"),
+         gender = factor(gender, c("MEN", "WOMEN"), c("Men", "Women")),
+         przewoz = app %in% c("Uber Driver", "Bolt Driver", 
+                               "iTaxi Kierowca K3", "FREE NOW for drivers"),
+         przewoz = ifelse(przewoz, "Transport", "Delivery"),
+         app = case_when(app == "Bolt Courier" ~"Bolt Courier",
+                          app == "Bolt Driver" ~ "Bolt Driver",
+                          app == "FREE NOW for drivers" ~ "FREE NOW",
+                          app == "Glover" ~ "Glover",
+                          app == "iTaxi Kierowca K3" ~ "iTaxi",
+                          app == "Takeaway.com Courier" ~ "Takeaway",
+                          app == "Uber Driver" ~ "Uber",
+                          app == "Wolt Courier Partner" ~ "Wolt")) %>%
+  ggplot(data = ., aes(x = period, y = n/1000, group = gender, color = gender)) +
+  geom_line() +
+  geom_point() + 
+  scale_color_brewer(type = "qual", palette = "Dark2") +  
+  facet_nested(~ przewoz + app) +
+  labs(x = "Half-year", y = "Number of users (in thousands)", color = "Gender") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
+        legend.position = "bottom") -> p2c
+
+p2c
+
+ggsave(plot = p2c, file = "figures/fig-sel-half-sex.png", width = 8, height = 4)
+
+```
+
+Figure 5 -- Point and 95\% interval of ratio of the number of active users and the LFS working 18--65 population by app for 2020HY1. Note that Y axis differs between the apps
+
+```{r}
+selectivv[[3]]  %>%
+    filter(group == "Cities")  %>%
+    mutate(period = case_when(period == "January - June 2018" ~ "2018.1",
+                              period == "July - December 2018" ~ "2018.2",
+                              period == "January - June 2019" ~ "2019.1",
+                              period == "July - December 2019" ~ "2019.2",
+                              period == "January - June 2020" ~ "2020.1",
+                              period == "July - December 2020" ~ "2020.2")) %>%
+    select(period, region_name, bolt_driver:glover) %>%
+    gather(apps, users_cities, bolt_driver:glover) %>%
+  left_join(
+    bael 
+  ) %>%
+  filter(users_cities > 0 ) -> cities_bael
+```
+
+
+```{r}
+cities_bael %>%
+  filter(region_name != "M. Sopot", period == "2020.1") %>%
+  filter(!is.na(y))  %>%
+  mutate(share = users_cities/y*100,
+         share_hi = users_cities / (y - 1.96*rmse)*100,
+         share_lo = users_cities / (y + 1.96*rmse)*100,
+         region_name = str_remove(region_name, "M. ")) %>%
+  mutate(apps = case_when(apps == "bolt_courier" ~"Bolt Courier",
+                          apps == "bolt_driver" ~ "Bolt Driver",
+                          apps == "free_now_for_drivers" ~ "FREE NOW",
+                          apps == "glover" ~ "Glover",
+                          apps == "i_taxi_kierowca_k3" ~ "iTaxi",
+                          apps == "takeaway_com_courier" ~ "Takeaway",
+                          apps == "uber_driver" ~ "Uber",
+                          apps == "wolt_courier_partner" ~ "Wolt"),
+         apps = factor(apps, c("Uber", "Bolt Driver", "iTaxi", "FREE NOW",
+                               "Takeaway", "Wolt", "Glover",  "Bolt Courier"))) %>%
+  ggplot(data = ., aes(x = reorder(region_name, -y), y = share, ymin = share_lo, ymax = share_hi)) +
+  geom_errorbar() +
+  geom_point()  +
+  facet_wrap(~apps, ncol = 4, scale = "free_y") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 5))  +
+  #scale_y_continuous(labels = scales::label_percent(accuracy = 2)) +
+  labs(x = "City (ordered by the LFS working population size)", 
+       y = "Number of users / LFS working population [%]") -> p3
+
+p3
+
+ggsave(plot = p3, file = "figures/fig-sel-cities-shares.png", width = 8, height = 4)
+
+```
+
+Figure 6 -- Average and standard deviation (Std. Dev.) of activity time by app type, app, weekdays and hours
+
+
+```{r}
+selectivv[[4]] %>%
+  mutate(period = case_when(period == "January - June 2018" ~ "2018.1",
+                            period == "July - December 2018" ~ "2018.2",
+                            period == "January - June 2019" ~ "2019.1",
+                            period == "July - December 2019" ~ "2019.2",
+                            period == "January - June 2020" ~ "2020.1", 
+                            period == "July - December 2020" ~ "2020.2")) %>%
+  gather(times, vals, -period, -app) %>%
+  separate(times, c("day", "day2", "hour"), extra = "merge") %>%
+  unite("day", c("day", "day2"), sep = "-") %>%
+  mutate(stat = ifelse(str_ends(hour, "std"), "Std.Dev.", "Average"),
+         vals = vals / 3600,
+         hour = str_remove(hour, "\\_std|\\_s"),
+         hour = ifelse(str_detect(hour, "18_00_8_00"), "night (18-8)", "day (8-18)"),
+         day  = factor(day, c("monday-thursday", "friday-sunday"), c("Mondays-Thursdays", "Fridays-Sundays")),
+         app = case_when(app == "Bolt Courier" ~ "Bolt Courier",
+                          app == "Bolt Driver" ~ "Bolt Driver",
+                          app == "FREE NOW for drivers" ~ "FREE NOW",
+                          app == "Glover" ~ "Glover",
+                          app == "iTaxi Kierowca K3" ~ "iTaxi",
+                          app == "Takeaway.com Courier" ~ "Takeaway",
+                          app == "Uber Driver" ~ "Uber",
+                          app == "Wolt Courier Partner" ~ "Wolt"),
+         app = factor(app, c("Uber", "Bolt Driver", "iTaxi", "FREE NOW",
+                             "Bolt Courier", "Takeaway", "Wolt", "Glover")),
+         przewoz = app %in% c("Uber", "Bolt Driver", "iTaxi", "FREE NOW"),
+         przewoz = ifelse(przewoz, "Transport", "Delivery"))  %>%
+  ggplot(data = ., aes(x = period, y = vals, color = app, group = app)) +
+  geom_line() +
+  geom_point() + 
+  facet_nested(day ~ przewoz +  hour + stat)  +
+  scale_color_brewer(type = "qual", palette = "Dark2", name = "Apps") +  
+  theme(axis.text.x=element_text(angle = 45, vjust = 1, hjust = 1)) +
+  labs(x = "Half-year", y = "Average time (in hours)") + 
+  scale_y_continuous(breaks = seq(0,7,1))  -> p4
+
+p4
+
+ggsave(plot = p4, file = "figures/fig-sel-half-time-dev.png", width = 9, height = 5)
+
+```
+
+APPENDIX
+
+Table 6 Number of active users in cities for 2020HY2
+
+```{r}
+selectivv[[3]] %>%
+    filter(group == "Cities") %>%
+    mutate(period = case_when(period == "January - June 2018" ~ "2018.1",
+                              period == "July - December 2018" ~ "2018.2",
+                              period == "January - June 2019" ~ "2019.1",
+                              period == "July - December 2019" ~ "2019.2",
+                              period == "January - June 2020" ~ "2020.1",
+                              period == "July - December 2020" ~ "2020.2")) %>%
+    select(period, region_name, bolt_driver:glover) %>%
+    gather(apps, vals, -region_name, -period) %>%
+    mutate(apps = case_when(apps == "bolt_courier" ~"Bolt Courier",
+                            apps == "bolt_driver" ~ "Bolt Driver",
+                            apps == "free_now_for_drivers" ~ "FREE NOW",
+                            apps == "glover" ~ "Glover",
+                            apps == "i_taxi_kierowca_k3" ~ "iTaxi",
+                            apps == "takeaway_com_courier" ~ "Takeaway",
+                            apps == "uber_driver" ~ "Uber",
+                            apps == "wolt_courier_partner" ~ "Wolt"),
+           apps = factor(apps, c("Uber", "Bolt Driver", "iTaxi", "FREE NOW",
+                                 "Takeaway", "Wolt", "Glover",  "Bolt Courier"))) %>%
+    filter(vals > 0, period == "2020.2")  %>% spread(apps, vals) %>% select(-period) %>% mutate(region_name = str_remove(region_name, "M. ")) %>% xtable(digits = 0) %>% print.xtable(include.rownames = F, NA.string = "--")
+```
+
+
+Table 7 Direct estimates, its standard errors (in thousands) and sample sizes of the working population size (18--64) based on the Labour Force Survey between 2018HY1 and 2020HY
+
+```{r}
+bael %>%
+  filter(period == "2018.1")  %>% 
+  mutate(region_name = str_remove(region_name, "M. "),
+         y = y / 1000,
+         rmse = rmse / 1000,
+         cv = rmse/y*100) %>%
+  select(region_name, size = y, std = rmse, sample = n) %>%
+  left_join(
+    bael %>%
+    filter(period == "2018.2")  %>% 
+    mutate(region_name = str_remove(region_name, "M. "),
+         y = y / 1000,
+         rmse = rmse / 1000,
+         cv = rmse/y*100) %>%
+    select(region_name, size = y, std = rmse, sample = n),
+    by = "region_name"
+  ) %>%
+  left_join(
+    bael %>%
+    filter(period == "2019.1")  %>% 
+    mutate(region_name = str_remove(region_name, "M. "),
+         y = y / 1000,
+         rmse = rmse / 1000,
+         cv = rmse/y*100) %>%
+    select(region_name, size = y, std = rmse, sample = n),
+    by = "region_name"
+  )  %>%
+  left_join(
+    bael %>%
+    filter(period == "2019.2")  %>% 
+    mutate(region_name = str_remove(region_name, "M. "),
+         y = y / 1000,
+         rmse = rmse / 1000,
+         cv = rmse/y*100) %>%
+    select(region_name, size = y, std = rmse, sample = n),
+    by = "region_name"
+  )  %>%
+  left_join(
+    bael %>%
+    filter(period == "2020.1")  %>% 
+    mutate(region_name = str_remove(region_name, "M. "),
+         y = y / 1000,
+         rmse = rmse / 1000,
+         cv = rmse/y*100) %>%
+    select(region_name, size = y, std = rmse, sample = n),
+    by = "region_name"
+  )  %>%
+  mutate_at(vars(starts_with("sample")), as.integer) %>%
+  xtable(digits = 1) %>%
+  print.xtable(include.rownames = F)
+  
+```
