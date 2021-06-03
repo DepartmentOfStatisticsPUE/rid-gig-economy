@@ -6,8 +6,8 @@
 Data and codes for the paper "The gig economy in Poland -- evidence based on the mobile big data" by:
 
 + Beręsewicz Maciej -- Poznań University of Economics and Business, Poland; Statistical Office in Poznań, Poland
-+ Nikulin Dagmara -- 
-+ Szymkowiak Marcin -- Poznań University of Economics and Business, Poland; Statistical Office in Poznań, Poland -- Gdańsk University of Technology, Poland.
++ Nikulin Dagmara -- Gdańsk University of Technology, Poland
++ Szymkowiak Marcin -- Poznań University of Economics and Business, Poland; Statistical Office in Poznań, Poland
 + Wilak Kamil -- Poznań University of Economics and Business, Poland; Statistical Office in Poznań, Poland
 
 The structure of the repo is as follows:
