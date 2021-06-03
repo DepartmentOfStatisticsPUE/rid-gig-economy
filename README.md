@@ -21,6 +21,16 @@ The structure of the repo is as follows:
 
 Beręsewicz, Nikulin, Szymkowiak and Wilak, (2021) The gig economy in Poland -- evidence based on the mobile big data, Working paper, URL: https://github.com/DepartmentOfStatisticsPUE/rid-gig-economy
 
+```
+@online{beresewicz2021,
+    author = "Beręsewicz, Maciej and  Nikulin, Dagmara and Szymkowiak, Marcin and Wilak, Kamil",
+    title = "The gig economy in Poland -- evidence based on the mobile big data",
+    url  = " https://github.com/DepartmentOfStatisticsPUE/rid-gig-economy",
+    addendum = "2021",
+    year = 2021
+}
+```
+
 ## Acknowledgements
 
 The study was conducted within the research project *Economics in the face of the New Economy* financed within the Regional Initiative for Excellence programme of the Minister of Science and Higher Education of Poland, years 2019-2022, grant no. 004/RID/2018/19, financing 3,000,000 PLN (for Maciej Beręsewicz, Marcin Szymkowiak and Kamil Wilak).
