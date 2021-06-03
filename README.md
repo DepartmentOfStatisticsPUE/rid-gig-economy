@@ -17,6 +17,9 @@ The structure of the repo is as follows:
 + `paper-calculations.Rmd` -- R notebook with codes to reproduce plots and some tables
 + `paper.pdf` -- the main paper (preliminary and before proofread)
 
+## How to cite
+
+Beręsewicz, Nikulin, Szymkowiak and Wilak, (2021) The gig economy in Poland -- evidence based on the mobile big data, Working paper, URL: https://github.com/DepartmentOfStatisticsPUE/rid-gig-economy
 
 ## Acknowledgements
 
