@@ -1,0 +1,244 @@
+month,apps,numer_of_users,category
+2018-01-15,Uber,32158,Transportation
+2018-02-15,Uber,33035,Transportation
+2018-03-15,Uber,33269,Transportation
+2018-04-15,Uber,34176,Transportation
+2018-05-15,Uber,34958,Transportation
+2018-06-15,Uber,35238,Transportation
+2018-07-15,Uber,35835,Transportation
+2018-08-15,Uber,35996,Transportation
+2018-09-15,Uber,36442,Transportation
+2018-10-15,Uber,36809,Transportation
+2018-11-15,Uber,37028,Transportation
+2018-12-15,Uber,37610,Transportation
+2019-01-15,Uber,38377,Transportation
+2019-02-15,Uber,39123,Transportation
+2019-03-15,Uber,39370,Transportation
+2019-04-15,Uber,40004,Transportation
+2019-05-15,Uber,40517,Transportation
+2019-06-15,Uber,40953,Transportation
+2019-07-15,Uber,41450,Transportation
+2019-08-15,Uber,41670,Transportation
+2019-09-15,Uber,41809,Transportation
+2019-10-15,Uber,41927,Transportation
+2019-11-15,Uber,42117,Transportation
+2019-12-15,Uber,42406,Transportation
+2020-01-15,Uber,43008,Transportation
+2020-02-15,Uber,43443,Transportation
+2020-03-15,Uber,43733,Transportation
+2020-04-15,Uber,44064,Transportation
+2020-05-15,Uber,44343,Transportation
+2020-06-15,Uber,44835,Transportation
+2020-07-15,Uber,45082,Transportation
+2020-08-15,Uber,45557,Transportation
+2020-09-15,Uber,45689,Transportation
+2020-10-15,Uber,45769,Transportation
+2020-11-15,Uber,45972,Transportation
+2020-12-15,Uber,46391,Transportation
+2018-01-15,Bolt Driver,21939,Transportation
+2018-02-15,Bolt Driver,22412,Transportation
+2018-03-15,Bolt Driver,22798,Transportation
+2018-04-15,Bolt Driver,23054,Transportation
+2018-05-15,Bolt Driver,23292,Transportation
+2018-06-15,Bolt Driver,24218,Transportation
+2018-07-15,Bolt Driver,26732,Transportation
+2018-08-15,Bolt Driver,27270,Transportation
+2018-09-15,Bolt Driver,27414,Transportation
+2018-10-15,Bolt Driver,28232,Transportation
+2018-11-15,Bolt Driver,28345,Transportation
+2018-12-15,Bolt Driver,28796,Transportation
+2019-01-15,Bolt Driver,29461,Transportation
+2019-02-15,Bolt Driver,29862,Transportation
+2019-03-15,Bolt Driver,30516,Transportation
+2019-04-15,Bolt Driver,31079,Transportation
+2019-05-15,Bolt Driver,31681,Transportation
+2019-06-15,Bolt Driver,32460,Transportation
+2019-07-15,Bolt Driver,33324,Transportation
+2019-08-15,Bolt Driver,33877,Transportation
+2019-09-15,Bolt Driver,34020,Transportation
+2019-10-15,Bolt Driver,34295,Transportation
+2019-11-15,Bolt Driver,34859,Transportation
+2019-12-15,Bolt Driver,35410,Transportation
+2020-01-15,Bolt Driver,35489,Transportation
+2020-02-15,Bolt Driver,36391,Transportation
+2020-03-15,Bolt Driver,36803,Transportation
+2020-04-15,Bolt Driver,37191,Transportation
+2020-05-15,Bolt Driver,37652,Transportation
+2020-06-15,Bolt Driver,37715,Transportation
+2020-07-15,Bolt Driver,38075,Transportation
+2020-08-15,Bolt Driver,38250,Transportation
+2020-09-15,Bolt Driver,38381,Transportation
+2020-10-15,Bolt Driver,38449,Transportation
+2020-11-15,Bolt Driver,38690,Transportation
+2020-12-15,Bolt Driver,39022,Transportation
+2018-01-15,FREE NOW,7525,Transportation
+2018-02-15,FREE NOW,7821,Transportation
+2018-03-15,FREE NOW,7996,Transportation
+2018-04-15,FREE NOW,8487,Transportation
+2018-05-15,FREE NOW,9374,Transportation
+2018-06-15,FREE NOW,9669,Transportation
+2018-07-15,FREE NOW,9709,Transportation
+2018-08-15,FREE NOW,10545,Transportation
+2018-09-15,FREE NOW,10965,Transportation
+2018-10-15,FREE NOW,11839,Transportation
+2018-11-15,FREE NOW,12085,Transportation
+2018-12-15,FREE NOW,12672,Transportation
+2019-01-15,FREE NOW,13613,Transportation
+2019-02-15,FREE NOW,14510,Transportation
+2019-03-15,FREE NOW,15121,Transportation
+2019-04-15,FREE NOW,15404,Transportation
+2019-05-15,FREE NOW,16128,Transportation
+2019-06-15,FREE NOW,16603,Transportation
+2019-07-15,FREE NOW,16632,Transportation
+2019-08-15,FREE NOW,17368,Transportation
+2019-09-15,FREE NOW,17655,Transportation
+2019-10-15,FREE NOW,17929,Transportation
+2019-11-15,FREE NOW,18039,Transportation
+2019-12-15,FREE NOW,18471,Transportation
+2020-01-15,FREE NOW,18675,Transportation
+2020-02-15,FREE NOW,19054,Transportation
+2020-03-15,FREE NOW,19435,Transportation
+2020-04-15,FREE NOW,19683,Transportation
+2020-05-15,FREE NOW,20143,Transportation
+2020-06-15,FREE NOW,20320,Transportation
+2020-07-15,FREE NOW,19445,Transportation
+2020-08-15,FREE NOW,19731,Transportation
+2020-09-15,FREE NOW,20158,Transportation
+2020-10-15,FREE NOW,20592,Transportation
+2020-11-15,FREE NOW,20734,Transportation
+2020-12-15,FREE NOW,21105,Transportation
+2018-01-15,iTaxi,11258,Transportation
+2018-02-15,iTaxi,12090,Transportation
+2018-03-15,iTaxi,12676,Transportation
+2018-04-15,iTaxi,13333,Transportation
+2018-05-15,iTaxi,13815,Transportation
+2018-06-15,iTaxi,14676,Transportation
+2018-07-15,iTaxi,14203,Transportation
+2018-08-15,iTaxi,14720,Transportation
+2018-09-15,iTaxi,15163,Transportation
+2018-10-15,iTaxi,16036,Transportation
+2018-11-15,iTaxi,16638,Transportation
+2018-12-15,iTaxi,16805,Transportation
+2019-01-15,iTaxi,17222,Transportation
+2019-02-15,iTaxi,17461,Transportation
+2019-03-15,iTaxi,17518,Transportation
+2019-04-15,iTaxi,17608,Transportation
+2019-05-15,iTaxi,18238,Transportation
+2019-06-15,iTaxi,18977,Transportation
+2019-07-15,iTaxi,19844,Transportation
+2019-08-15,iTaxi,20194,Transportation
+2019-09-15,iTaxi,20683,Transportation
+2019-10-15,iTaxi,21447,Transportation
+2019-11-15,iTaxi,21695,Transportation
+2019-12-15,iTaxi,22410,Transportation
+2020-01-15,iTaxi,21324,Transportation
+2020-02-15,iTaxi,21923,Transportation
+2020-03-15,iTaxi,22226,Transportation
+2020-04-15,iTaxi,22652,Transportation
+2020-05-15,iTaxi,22692,Transportation
+2020-06-15,iTaxi,23011,Transportation
+2020-07-15,iTaxi,23582,Transportation
+2020-08-15,iTaxi,24011,Transportation
+2020-09-15,iTaxi,24054,Transportation
+2020-10-15,iTaxi,24367,Transportation
+2020-11-15,iTaxi,24825,Transportation
+2020-12-15,iTaxi,25038,Transportation
+2019-07-15,Glover,1586,Delivery
+2019-08-15,Glover,1892,Delivery
+2019-09-15,Glover,2286,Delivery
+2019-10-15,Glover,2289,Delivery
+2019-11-15,Glover,2343,Delivery
+2019-12-15,Glover,2694,Delivery
+2020-01-15,Glover,2825,Delivery
+2020-02-15,Glover,2996,Delivery
+2020-03-15,Glover,3354,Delivery
+2020-04-15,Glover,3900,Delivery
+2020-05-15,Glover,4322,Delivery
+2020-06-15,Glover,4975,Delivery
+2020-07-15,Glover,5201,Delivery
+2020-08-15,Glover,5372,Delivery
+2020-09-15,Glover,6151,Delivery
+2020-10-15,Glover,6393,Delivery
+2020-11-15,Glover,6522,Delivery
+2020-12-15,Glover,6925,Delivery
+2018-01-15,Takeaway,7252,Delivery
+2018-02-15,Takeaway,7474,Delivery
+2018-03-15,Takeaway,7857,Delivery
+2018-04-15,Takeaway,7946,Delivery
+2018-05-15,Takeaway,8105,Delivery
+2018-06-15,Takeaway,8413,Delivery
+2018-07-15,Takeaway,8635,Delivery
+2018-08-15,Takeaway,8891,Delivery
+2018-09-15,Takeaway,9160,Delivery
+2018-10-15,Takeaway,9170,Delivery
+2018-11-15,Takeaway,9289,Delivery
+2018-12-15,Takeaway,9635,Delivery
+2019-01-15,Takeaway,9907,Delivery
+2019-02-15,Takeaway,10306,Delivery
+2019-03-15,Takeaway,10425,Delivery
+2019-04-15,Takeaway,10562,Delivery
+2019-05-15,Takeaway,10634,Delivery
+2019-06-15,Takeaway,10660,Delivery
+2019-07-15,Takeaway,10776,Delivery
+2019-08-15,Takeaway,10960,Delivery
+2019-09-15,Takeaway,11236,Delivery
+2019-10-15,Takeaway,11556,Delivery
+2019-11-15,Takeaway,11900,Delivery
+2019-12-15,Takeaway,11935,Delivery
+2020-01-15,Takeaway,12103,Delivery
+2020-02-15,Takeaway,12120,Delivery
+2020-03-15,Takeaway,12281,Delivery
+2020-04-15,Takeaway,12820,Delivery
+2020-05-15,Takeaway,13254,Delivery
+2020-06-15,Takeaway,13380,Delivery
+2020-07-15,Takeaway,13415,Delivery
+2020-08-15,Takeaway,13660,Delivery
+2020-09-15,Takeaway,13667,Delivery
+2020-10-15,Takeaway,13708,Delivery
+2020-11-15,Takeaway,13911,Delivery
+2020-12-15,Takeaway,13997,Delivery
+2020-04-15,Bolt Courier,567,Delivery
+2020-05-15,Bolt Courier,584,Delivery
+2020-06-15,Bolt Courier,726,Delivery
+2020-07-15,Bolt Courier,917,Delivery
+2020-08-15,Bolt Courier,1013,Delivery
+2020-09-15,Bolt Courier,1099,Delivery
+2020-10-15,Bolt Courier,1113,Delivery
+2020-11-15,Bolt Courier,1276,Delivery
+2020-12-15,Bolt Courier,1388,Delivery
+2018-01-15,Wolt,2358,Delivery
+2018-02-15,Wolt,2412,Delivery
+2018-03-15,Wolt,2427,Delivery
+2018-04-15,Wolt,2513,Delivery
+2018-05-15,Wolt,2585,Delivery
+2018-06-15,Wolt,2668,Delivery
+2018-07-15,Wolt,2731,Delivery
+2018-08-15,Wolt,2779,Delivery
+2018-09-15,Wolt,2810,Delivery
+2018-10-15,Wolt,2856,Delivery
+2018-11-15,Wolt,2958,Delivery
+2018-12-15,Wolt,2986,Delivery
+2019-01-15,Wolt,3000,Delivery
+2019-02-15,Wolt,3099,Delivery
+2019-03-15,Wolt,3165,Delivery
+2019-04-15,Wolt,3313,Delivery
+2019-05-15,Wolt,3464,Delivery
+2019-06-15,Wolt,3553,Delivery
+2019-07-15,Wolt,3595,Delivery
+2019-08-15,Wolt,3674,Delivery
+2019-09-15,Wolt,3703,Delivery
+2019-10-15,Wolt,3770,Delivery
+2019-11-15,Wolt,3829,Delivery
+2019-12-15,Wolt,3909,Delivery
+2020-01-15,Wolt,4093,Delivery
+2020-02-15,Wolt,4199,Delivery
+2020-03-15,Wolt,4277,Delivery
+2020-04-15,Wolt,4525,Delivery
+2020-05-15,Wolt,4771,Delivery
+2020-06-15,Wolt,5121,Delivery
+2020-07-15,Wolt,5300,Delivery
+2020-08-15,Wolt,5353,Delivery
+2020-09-15,Wolt,5494,Delivery
+2020-10-15,Wolt,5645,Delivery
+2020-11-15,Wolt,5655,Delivery
+2020-12-15,Wolt,5681,Delivery
