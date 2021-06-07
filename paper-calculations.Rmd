@@ -52,7 +52,8 @@ selectivv[[1]] %>%
   filter(vals > 0 ) %>%
   mutate(przewoz = apps %in% c("uber_driver", "bolt_driver", 
                                "i_taxi_kierowca_k3", "free_now_for_drivers"),
-         przewoz = ifelse(przewoz, "Kierowcy (przewóz osób)", "Dostawcy (przewóz towarów)")) %>%
+         przewoz = ifelse(przewoz, "Transportation", "Delivery"),
+         przewoz = factor(przewoz, c("Transportation", "Delivery"))) %>%
   mutate(apps = case_when(apps == "bolt_courier" ~"Bolt Courier",
                           apps == "bolt_driver" ~ "Bolt Driver",
                           apps == "free_now_for_drivers" ~ "Free Now",
