@@ -1,4 +1,4 @@
-group,period,region_name,apps,numer_of_users,category
+group,period,region_name,apps,number_of_users,category
 Voivodeship,2018.1,dolnośląskie,Bolt Driver,2758,Transportation
 Voivodeship,2018.1,kujawsko-pomorskie,Bolt Driver,1003,Transportation
 Voivodeship,2018.1,lubelskie,Bolt Driver,676,Transportation
