@@ -1,9 +1,9 @@
-# The gig economy in Poland -- evidence based on the mobile big data
+# The gig economy in Poland: evidence based on the mobile big data
 
 
 ## Basic info
 
-Data and codes for the paper "The gig economy in Poland -- evidence based on the mobile big data" by:
+Data and codes for the paper "The gig economy in Poland: evidence based on the mobile big data" by:
 
 + Beręsewicz Maciej -- Poznań University of Economics and Business, Poland; Statistical Office in Poznań, Poland
 + Nikulin Dagmara -- Gdańsk University of Technology, Poland
@@ -19,12 +19,12 @@ The structure of the repo is as follows:
 
 ## How to cite
 
-Beręsewicz, Nikulin, Szymkowiak and Wilak, (2021) The gig economy in Poland -- evidence based on the mobile big data, Working paper, URL: https://github.com/DepartmentOfStatisticsPUE/rid-gig-economy
+Beręsewicz, Nikulin, Szymkowiak and Wilak, (2021) The gig economy in Poland: evidence based on the mobile big data, Working paper, URL: https://github.com/DepartmentOfStatisticsPUE/rid-gig-economy
 
 ```
 @online{beresewicz2021,
     author = "Beręsewicz, Maciej and  Nikulin, Dagmara and Szymkowiak, Marcin and Wilak, Kamil",
-    title = "The gig economy in Poland -- evidence based on the mobile big data",
+    title = "The gig economy in Poland: evidence based on the mobile big data",
     url  = " https://github.com/DepartmentOfStatisticsPUE/rid-gig-economy",
     addendum = "2021",
     year = 2021
