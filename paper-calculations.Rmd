@@ -36,6 +36,7 @@ selectivv[[4]] <- read_csv(file = "data/gig-table4-halfyear-activity-stats.csv")
 ```
 
 BAEL data 
+
 ```{r}
 bael <- read_csv("data/bael.csv") %>%
   na.omit() %>%
@@ -72,7 +73,39 @@ p1
 ggsave(plot = p1, file = "figures/fig-sel-month.png", width = 7, height = 4)
 ```
 
-Figure 4 Number of monthly active users of selected apps in Poland by country, age and gender between 2018 and 2020
+Figure 4 -- by region
+
+```{r}
+selectivv[[3]] %>%
+  count(category, apps, group, period, wt = number_of_users) %>%
+  spread(group, n) %>%
+  mutate(fua = `Functional area` - Cities, 
+         woj = Voivodeship - `Functional area`) %>%
+  select(category, apps, period, cities = Cities, fua, woj) %>%
+  gather(geo, val, -apps, -period, -category) %>%
+  mutate(geo = factor(geo, c("cities", "fua", "woj"),
+                      c("Cities", "Functional UAs", "Voivodeships"))) %>%
+  group_by(apps, geo) %>%
+  mutate(index = val/val[1],
+         diff = val-val[1],
+         apps = factor(apps, c("Uber", "Bolt Driver", "iTaxi", "FREE NOW",
+                               "Takeaway", "Wolt", "Glover",  "Bolt Courier"))) %>%
+  ggplot(data = ., aes(x = as.factor(period), y = diff/1000, group = apps, color = apps)) +
+  geom_line() +
+  scale_color_brewer(type = "qual", palette = "Dark2") +  
+  facet_grid(category ~ geo, scales = "free_y") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Period (reference=2018.1)", y = "Change in the number of users\n(in thousands)", color = "Apps") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
+        legend.position = "bottom") ->  p1b
+
+p1b
+
+ggsave(plot = p1b, file = "figures/fig-sel-diff-hy.png", width = 8, height = 5)
+```
+
+
+Figure 5 Number of monthly active users of selected apps in Poland by country, age and gender between 2018 and 2020
 
 ```{r}
 selectivv[[2]] %>%
@@ -129,7 +162,7 @@ ggsave(plot = p2c, file = "figures/fig-sel-half-sex.png", width = 8, height = 4)
 
 ```
 
-Figure 5 -- Point and 95\% interval of ratio of the number of active users and the LFS working 18--65 population by app for 2020HY1. Note that Y axis differs between the apps
+Figure 6 -- Point and 95\% interval of ratio of the number of active users and the LFS working 18--65 population by app for 2020HY1. Note that Y axis differs between the apps
 
 ```{r}
 selectivv[[3]]  %>%
@@ -168,7 +201,7 @@ ggsave(plot = p3, file = "figures/fig-sel-cities-shares.png", width = 8, height 
 
 ```
 
-Figure 6 -- Average and standard deviation (Std. Dev.) of activity time by app type, app, weekdays and hours
+Figure 7 -- Average and standard deviation (Std. Dev.) of activity time by app type, app, weekdays and hours
 
 
 ```{r}
@@ -181,13 +214,14 @@ selectivv[[4]] %>%
   geom_point() + 
   facet_nested(day ~ category +  hour + statistic)  +
   scale_color_brewer(type = "qual", palette = "Dark2", name = "Apps") +  
-  theme(axis.text.x=element_text(angle = 45, vjust = 1, hjust = 1)) +
+  theme(axis.text.x=element_text(angle = 45, vjust = 1, hjust = 1),
+        legend.position = "bottom") +
   labs(x = "Half-year", y = "Average time (in hours)") + 
   scale_y_continuous(breaks = seq(0,7,1))  -> p4
 
 p4
 
-ggsave(plot = p4, file = "figures/fig-sel-half-time-dev.png", width = 9, height = 5)
+ggsave(plot = p4, file = "figures/fig-sel-half-time-dev.png", width = 8, height = 5)
 
 ```
 
@@ -206,6 +240,103 @@ selectivv[[3]] %>%
     select(-period) %>% 
     xtable(digits = 0) %>% 
     print.xtable(include.rownames = F, NA.string = "--")
+```
+
+Plots by City, Functional UAs, woi
+
+Table with data
+
+```{r}
+spat_tab <-data_frame(city = list("Wrocław", 
+                       c("Bydgoszcz", "Toruń"),
+                       "Łódź",
+                       "Lublin",
+                       c("Zielona Góra", "Gorzów Wielkopolski"),
+                       "Kraków",
+                       "Warszawa",
+                       "Opole",
+                       "Rzeszów",
+                       "Białystok",
+                       c("Gdańsk", "Gdynia", "Sopot"),
+                       "Katowice",
+                       "Kielce",
+                       "Olsztyn",
+                       "Poznań",
+                       "Szczecin"),
+           lau  = list("Functional area - Wrocław", 
+                       c("Functional area - Bydgoszcz", "Functional area - Toruń"),
+                       "Functional area - Łódź",
+                       "Functional area - Lublin",
+                       c("Functional area - Zielona Góra", "Functional area - Gorzów Wielkopolski"),
+                       "Functional area - Kraków",
+                       "Functional area - Warszawa",
+                       "Functional area - Opole",
+                       "Functional area - Rzeszów",
+                       "Functional area - Białystok",
+                       "Functional area - Trójmiasto",
+                       c("Functional area - GMZ", "Functional area - GMZ2"),
+                       "Functional area - Kielce",
+                       "Functional area - Olsztyn",
+                       "Functional area - Poznań",
+                       "Functional area - Szczecin"),
+           woj = list("dolnośląskie", 
+                      "kujawsko-pomorskie",
+                      "łódzkie",
+                      "lubelskie",
+                      "lubuskie",
+                      "małopolskie",
+                      "mazowieckie",
+                      "opolskie",
+                      "podkarpackie",
+                      "podlaskie",
+                      "pomorskie",
+                      "śląskie",
+                      "świętokrzyskie",
+                      "warmińsko-mazurskie",
+                      "wielkopolskie",
+                      "zachodniopomorskie"))
+```
+
+For plot: c(1, 3, 4, 6:10,13:16)
+```{r}
+plot_regions <- c(1, 3, 4, 6:10,13:16)
+```
+
+```{r}
+
+for (i in plot_regions) {
+  
+city <- spat_tab[i, "city"][[1]][[1]]
+lau <- spat_tab[i, "lau"][[1]][[1]]
+woj <- spat_tab[i, "woj"][[1]][[1]]
+
+selectivv[[3]] %>%
+  filter((group == "Voivodeship" & region_name == woj) |
+         (group == "Functional area" & region_name == lau) | 
+         (group == "Cities" & region_name == city)) %>%
+  mutate(region_name = str_replace(region_name, "Functional area - ", "FUA: "),
+         group = factor(group, c("Cities", "Functional area", "Voivodeship"),
+                        ordered = T))  %>%
+  arrange(apps, period, group) %>%
+  group_by(category, apps, period) %>%
+  mutate(n = number_of_users - lag(number_of_users),
+         n = ifelse(is.na(n), number_of_users, n),
+         period = as.character(period),
+         apps = factor(apps, c("Uber", "Bolt Driver", "iTaxi", "FREE NOW",
+                               "Takeaway", "Wolt", "Glover",  "Bolt Courier"))) %>%
+  ungroup() %>%
+  mutate(region_name = factor(region_name, unique(region_name), ordered = T)) %>%
+  ggplot(data = ., aes(x = period, y = n, group = apps, color = apps)) +
+  geom_line() +
+  facet_nested(category ~ region_name, scales = "free_y") + 
+  scale_color_brewer(type = "qual", palette = "Dark2") +
+  labs(x = "Period", y = "Change in the number of users", color = "Apps") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
+        legend.position = "bottom") -> p1_annex
+
+ggsave(plot = p1_annex, file = paste0("figures/fig-annex-", i, ".png"), width = 8, height = 5)
+
+}
 ```
 
 
