@@ -3,7 +3,7 @@
 
 ## Basic info
 
-Data and codes for the paper "The gig economy in Poland: evidence based on the mobile big data" by:
+Data and codes for the paper "The gig economy in Poland: evidence based on the mobile big data" (Arxiv preprint: XXX) by:
 
 + Beręsewicz Maciej -- Poznań University of Economics and Business, Poland; Statistical Office in Poznań, Poland
 + Nikulin Dagmara -- Gdańsk University of Technology, Poland
