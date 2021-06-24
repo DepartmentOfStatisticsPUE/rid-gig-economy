@@ -15,7 +15,7 @@ The structure of the repo is as follows:
 + `data/` -- folder with five datasets: `bael.csv` (LFS data), `gig-table1-monthly-counts-stats.csv, gig-table2-halfyear-demo-stats.csv, gig-table3-halfyear-region-stats.csv, gig-table4-halfyear-activity-stats.csv` (Selectivv data).
 + `figures/` -- figures prepared for the paper
 + `paper-calculations.Rmd` -- R notebook with codes to reproduce plots and some tables
-+ `paper.pdf` -- the main paper (preliminary and before proofread)
++ `paper.pdf` -- the main paper (submitted version)
 
 ## How to cite
 
