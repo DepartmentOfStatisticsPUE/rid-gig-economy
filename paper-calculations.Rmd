@@ -35,7 +35,7 @@ selectivv[[3]] <- read_csv(file = "data/gig-table3-halfyear-region-stats.csv")
 selectivv[[4]] <- read_csv(file = "data/gig-table4-halfyear-activity-stats.csv")
 ```
 
-BAEL data 
+LFS (BAEL) data 
 
 ```{r}
 bael <- read_csv("data/bael.csv") %>%
@@ -51,7 +51,10 @@ Figure 3: Number of monthly active users of selected apps in Poland by type and 
 
 ```{r}
 selectivv[[1]] %>%
-  mutate(label = if_else(month == max(month), as.character(apps), NA_character_)) %>%
+  mutate(label = if_else(month == max(month), as.character(apps), NA_character_),
+         apps = factor(apps, c("Uber", "Bolt Driver", "iTaxi", "FREE NOW",
+                               "Takeaway", "Wolt", "Glover",  "Bolt Courier")),
+         category  = factor(category, c("Transportation", "Delivery"))) %>%
   ggplot(data = ., aes(x = month, y = number_of_users/1000, color = apps, group = apps)) +
   geom_line(show.legend = FALSE) + 
   geom_text_repel(aes(label = label),
@@ -63,7 +66,7 @@ selectivv[[1]] %>%
                   na.rm = TRUE,
                   show.legend = FALSE) + 
   scale_color_brewer(type = "qual", palette = "Dark2") + 
-  labs(x = "Period", y = 'Number of users (thousands)', color = "App") + 
+  labs(x = "The reference period", y = 'Number of users (thousands)', color = "App") + 
   facet_wrap(~category, scales = "free_y") +
   scale_x_date(limits = c(as.Date("2018-01-01"), as.Date("2021-09-01"))) + 
   theme(strip.text = element_text(size = 15)) ->  p1
@@ -84,7 +87,8 @@ selectivv[[3]] %>%
   select(category, apps, period, cities = Cities, fua, woj) %>%
   gather(geo, val, -apps, -period, -category) %>%
   mutate(geo = factor(geo, c("cities", "fua", "woj"),
-                      c("Cities", "Functional UAs", "Voivodeships"))) %>%
+                      c("Cities", "Functional UAs", "Provinces")),
+         category  = factor(category, c("Transportation", "Delivery"))) %>%
   group_by(apps, geo) %>%
   mutate(index = val/val[1],
          diff = val-val[1],
@@ -95,7 +99,8 @@ selectivv[[3]] %>%
   scale_color_brewer(type = "qual", palette = "Dark2") +  
   facet_grid(category ~ geo, scales = "free_y") +
   geom_hline(yintercept = 0, linetype = "dashed") +
-  labs(x = "Period (reference=2018.1)", y = "Change in the number of users\n(in thousands)", color = "Apps") +
+  labs(x = "The reference period (t0=2018.1)", 
+       y = "Change in the number of users\n(in thousands)", color = "Apps") +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
         legend.position = "bottom") ->  p1b
 
@@ -109,13 +114,16 @@ Figure 5 Number of monthly active users of selected apps in Poland by country, a
 
 ```{r}
 selectivv[[2]] %>%
+  mutate(apps = factor(apps, c("Uber", "Bolt Driver", "iTaxi", "FREE NOW",
+                               "Takeaway", "Wolt", "Glover",  "Bolt Courier")),
+         category  = factor(category, c("Transportation", "Delivery"))) %>%
   count(category, apps, country, period, wt = n_unique_users) %>%  
   ggplot(data = ., aes(x = as.character(period), y = n/1000, group = country, color = country)) +
   geom_line() +
   geom_point() + 
   scale_color_brewer(type = "qual", palette = "Dark2") +  
   facet_nested(~ category + apps) +
-  labs(x = "Half-year", y = "Number of users (in thousands)", color = "Country") +
+  labs(x = "Half-year", y = "Number of users (in thousands)", color = "Nationality") +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
         legend.position = "bottom") -> p2a
 
@@ -125,7 +133,10 @@ ggsave(plot = p2a, file = "figures/fig-sel-half-country.png", width = 8, height 
 ```
 
 ```{r}
-selectivv[[2]] %>%
+selectivv[[2]]  %>%
+  mutate(apps = factor(apps, c("Uber", "Bolt Driver", "iTaxi", "FREE NOW",
+                               "Takeaway", "Wolt", "Glover",  "Bolt Courier")),
+         category  = factor(category, c("Transportation", "Delivery"))) %>%
   count(category, apps, age, period, wt = n_unique_users) %>%
   ggplot(data = ., aes(x = as.character(period), y = n/1000, group = age, color = age)) +
   geom_line() +
@@ -145,14 +156,17 @@ ggsave(plot = p2b, file = "figures/fig-sel-half-age.png", width = 8, height = 4)
 
 
 ```{r}
-selectivv[[2]] %>%
+selectivv[[2]]  %>%
+  mutate(apps = factor(apps, c("Uber", "Bolt Driver", "iTaxi", "FREE NOW",
+                               "Takeaway", "Wolt", "Glover",  "Bolt Courier")),
+         category  = factor(category, c("Transportation", "Delivery"))) %>%
   count(category, apps, gender, period, wt = n_unique_users)  %>%
   ggplot(data = ., aes(x = as.character(period), y = n/1000, group = gender, color = gender)) +
   geom_line() +
   geom_point() + 
   scale_color_brewer(type = "qual", palette = "Dark2") +  
   facet_nested(~ category + apps) +
-  labs(x = "Half-year", y = "Number of users (in thousands)", color = "Gender") +
+  labs(x = "Half-year", y = "Number of users (in thousands)", color = "Sex") +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
         legend.position = "bottom") -> p2c
 
@@ -192,7 +206,7 @@ cities_bael %>%
   facet_wrap(~apps, ncol = 4, scale = "free_y") +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 5))  +
   #scale_y_continuous(labels = scales::label_percent(accuracy = 2)) +
-  labs(x = "City (ordered by the LFS working population size)", 
+  labs(x = "Cities (ordered by the size of the working population according to the LFS)", 
        y = "Number of users / LFS working population [%]") -> p3
 
 p3
@@ -208,7 +222,10 @@ Figure 7 -- Average and standard deviation (Std. Dev.) of activity time by app t
 selectivv[[4]] %>%
   mutate(apps = factor(apps, c("Uber", "Bolt Driver", "iTaxi", "FREE NOW",
                              "Bolt Courier", "Takeaway", "Wolt", "Glover")),
-         day = factor(day, c("Mondays-Thursdays", "Fridays-Sundays")))  %>%
+         day = factor(day, c("Mondays-Thursdays", "Fridays-Sundays")),
+         hour = str_replace(hour, "day", "daytime"),
+         hour = str_replace(hour, "night", "nightime"),
+         category  = factor(category, c("Transportation", "Delivery")))  %>%
   ggplot(data = ., aes(x = as.character(period), y = activity_time, color = apps, group = apps)) +
   geom_line() +
   geom_point() + 
@@ -216,7 +233,7 @@ selectivv[[4]] %>%
   scale_color_brewer(type = "qual", palette = "Dark2", name = "Apps") +  
   theme(axis.text.x=element_text(angle = 45, vjust = 1, hjust = 1),
         legend.position = "bottom") +
-  labs(x = "Half-year", y = "Average time (in hours)") + 
+  labs(x = "Half-year", y = "Time spent in the app") + 
   scale_y_continuous(breaks = seq(0,7,1))  -> p4
 
 p4
@@ -315,8 +332,10 @@ selectivv[[3]] %>%
          (group == "Functional area" & region_name == lau) | 
          (group == "Cities" & region_name == city)) %>%
   mutate(region_name = str_replace(region_name, "Functional area - ", "FUA: "),
-         group = factor(group, c("Cities", "Functional area", "Voivodeship"),
-                        ordered = T))  %>%
+         group = factor(group, c("Cities", "Functional area", "Provinces"),
+                        ordered = T),
+         region_name = str_replace(region_name, "Warszawa", "Warsaw"),
+         region_name = str_replace(region_name, "Kraków", "Crakow"))  %>%
   arrange(apps, period, group) %>%
   group_by(category, apps, period) %>%
   mutate(n = number_of_users - lag(number_of_users),
