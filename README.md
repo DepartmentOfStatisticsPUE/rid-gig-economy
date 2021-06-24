@@ -35,6 +35,12 @@ Beręsewicz, Nikulin, Szymkowiak and Wilak, (2021) The gig economy in Poland: ev
 
 The study was conducted within the research project *Economics in the face of the New Economy* financed within the Regional Initiative for Excellence programme of the Minister of Science and Higher Education of Poland, years 2019-2022, grant no. 004/RID/2018/19, financing 3,000,000 PLN (for Maciej Beręsewicz, Marcin Szymkowiak and Kamil Wilak).
 
+## Media coverage
+
+1. *Tsunami pracy platformowej pochłania kolejne zawody. Jak szybko przejmie twój?* (Spider's Web, author: Marek Szymaniak) [link](https://spidersweb.pl/plus/2021/06/praca-platformy-aplikacje-gig-economy-uber-glovo-fixly-emerytury)
+2. *Praca na platformie* (Podcast Polityka Insight Techologie; author: Karol Tokarczyk) [link](https://soundcloud.com/pi-technologia/10-czerwca-2021)
+
+
 ## Session info
 
 ```{r}
