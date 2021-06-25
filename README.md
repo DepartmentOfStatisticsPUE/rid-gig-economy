@@ -22,12 +22,14 @@ The structure of the repo is as follows:
 Beręsewicz, Nikulin, Szymkowiak and Wilak, (2021) The gig economy in Poland: evidence based on the mobile big data, Working paper, URL: https://github.com/DepartmentOfStatisticsPUE/rid-gig-economy
 
 ```
-@misc{beresewicz2021,
-author = {Beręsewicz, Maciej and Nikulin, Dagmara and Szymkowiak, Marcin and Wilak, Kamil},
-title = {The gig economy in Poland: evidence based on mobile big data},
-year = {2021},
-eprint = {arXiv:2106.12827},
-url = {https://arxiv.org/abs/2106.12827}
+@misc{beresewicz2021gig,
+      title={The gig economy in Poland: evidence based on mobile big data}, 
+      author={Beręsewicz, Maciej and Nikulin, Dagmara and Szymkowiak, Marcin and, Wilak Kamil},
+      year={2021},
+      eprint={2106.12827},
+      archivePrefix={arXiv},
+      primaryClass={econ.GN},
+      url = {https://arxiv.org/abs/2106.12827}
 }
 ```
 
